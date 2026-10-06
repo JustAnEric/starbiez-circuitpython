@@ -320,7 +320,13 @@ bool filesystem_init(bool create_allowed, bool force_create) {
         lfs_write_boot_file("/settings.toml", "", 0);
         #endif
         // make a sample code.py file
-        lfs_write_boot_file("/code.py", "print(\"Hello World!\")\n", sizeof("print(\"Hello World!\")\n") - 1);
+        //lfs_write_boot_file("/code.py", "print(\"Hello World!\")\n", sizeof("print(\"Hello World!\")\n") - 1);
+        const char* code = "print(\"Hello, I'm Starbiez!\")\n"
+                           "\n"
+                           "# You should probably replace the code with the example code on the GitHub supplied here (by using git clone on your host machine to the device!):\n"
+                           "#   https://github.com/JustAnEric/starbiez/tree/main/firmware\n"
+                           "\n";
+        lfs_write_boot_file("/code.py", code, strlen(code));
 
         // create empty lib directory
         lfs2_mkdir(&circuitpy->lfs, "/lib");

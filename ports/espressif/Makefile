@@ -640,6 +640,19 @@ SRC_C += \
 	shared/netutils/netutils.c \
 	peripherals/$(IDF_TARGET)/pins.c
 
+# starbiez modification for ESP32 hardware
+STARBIE_CODE_PY_SRC := starbie_code_py.c
+STARBIE_CODE_PY := $(BUILD)/$(STARBIE_CODE_PY_SRC)
+
+$(STARBIE_CODE_PY): $(TOP)/starbie/firmware/code.py $(TOP)/ports/espressif/tools/embed_file.py
+	$(Q)$(PYTHON) $(TOP)/ports/espressif/tools/embed_file.py \
+		$< $@ starbie_code_py
+
+SRC_C += $(STARBIE_CODE_PY_SRC)
+
+$(BUILD)/starbie_code_py.o: $(STARBIE_CODE_PY)
+
+
 ifeq ($(CIRCUITPY_SSL),1)
 SRC_C += common-hal/ssl/crt_bundle.c
 endif
