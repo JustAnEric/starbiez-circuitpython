@@ -641,16 +641,17 @@ SRC_C += \
 	peripherals/$(IDF_TARGET)/pins.c
 
 # starbiez modification for ESP32 hardware
-STARBIE_CODE_PY_SRC := starbie_code_py.c
-STARBIE_CODE_PY := $(BUILD)/$(STARBIE_CODE_PY_SRC)
+STARBIEZ_CODE_PY_SRC := starbiez_code_py.c
+STARBIEZ_CODE_PY := $(BUILD)/$(STARBIEZ_CODE_PY_SRC)
 
-$(STARBIE_CODE_PY): $(TOP)/starbie/firmware/code.py $(TOP)/ports/espressif/tools/embed_file.py
-	$(Q)$(PYTHON) $(TOP)/ports/espressif/tools/embed_file.py \
-		$< $@ starbie_code_py
+$(STARBIEZ_CODE_PY): $(TOP)/starbiez/firmware/code.py $(TOP)/ports/espressif/tools/embed_file_starbiez.py
+	$(Q)$(MKDIR) -p $(dir $@)
+	$(Q)$(PYTHON) $(TOP)/ports/espressif/tools/embed_file_starbiez.py \
+		$< $@ starbiez_code_py
 
-SRC_C += $(STARBIE_CODE_PY_SRC)
+SRC_C += $(STARBIEZ_CODE_PY_SRC)
 
-$(BUILD)/starbie_code_py.o: $(STARBIE_CODE_PY)
+$(BUILD)/starbiez_code_py.o: $(STARBIEZ_CODE_PY)
 
 
 ifeq ($(CIRCUITPY_SSL),1)
