@@ -120,3 +120,4 @@ TAGS
 # Zephyr trace files
 **/channel0_0
 **/*.perfetto-trace
+starbiez/jerryscript/jerryscript
